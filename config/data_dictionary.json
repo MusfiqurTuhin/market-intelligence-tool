@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-11-28",
+  "description": "Data dictionary defining valid values and normalization rules for market intelligence system",
+  "countries": {
+    "BD": {
+      "name": "Bangladesh",
+      "full_name": "Bangladesh",
+      "region": "South Asia"
+    },
+    "IN": {
+      "name": "India",
+      "full_name": "India",
+      "region": "South Asia"
+    },
+    "US": {
+      "name": "United States",
+      "full_name": "United States of America",
+      "region": "North America"
+    }
+  },
+  "provider_tiers": {
+    "values": [
+      "Gold",
+      "Silver",
+      "Bronze",
+      "Standard"
+    ],
+    "descriptions": {
+      "Gold": "Highest tier - extensive experience",
+      "Silver": "Mid tier - proven track record",
+      "Bronze": "Entry tier - basic certification",
+      "Standard": "Standard partner"
+    }
+  },
+  "industries": {
+    "standardized_taxonomy": [
+      "Agriculture",
+      "Construction",
+      "Education",
+      "Entertainment",
+      "Finance",
+      "Food & Beverage",
+      "Government",
+      "Healthcare",
+      "IT & Technology",
+      "Manufacturing",
+      "Real Estate",
+      "Retail",
+      "Transportation"
+    ],
+    "normalization_map": {
+      "Tech": "IT & Technology",
+      "Software": "IT & Technology",
+      "Farming": "Agriculture",
+      "Building": "Construction",
+      "Shop": "Retail"
+    }
+  },
+  "service_modules": {
+    "core_modules": [
+      "Sales",
+      "CRM",
+      "Accounting",
+      "Inventory",
+      "HR",
+      "Project Management",
+      "Marketing",
+      "Helpdesk"
+    ],
+    "module_aliases": {
+      "Customer Relationship Management": "CRM",
+      "Human Resources": "HR",
+      "Accounts": "Accounting",
+      "Stock": "Inventory"
+    }
+  },
+  "data_quality_rules": {
+    "mandatory_fields": {
+      "providers": [
+        "name",
+        "country",
+        "source_url"
+      ],
+      "clients": [
+        "client_name",
+        "provider_id",
+        "industry"
+      ],
+      "references": [
+        "client_id",
+        "description"
+      ]
+    },
+    "validation_patterns": {
+      "url": "^https?://[^\\s]+$",
+      "country_code": "^(BD|IN|US)$"
+    },
+    "completeness_weights": {
+      "providers": {
+        "name": 1.0,
+        "country": 1.0,
+        "location": 0.8,
+        "website": 0.9,
+        "services": 0.9
+      }
+    }
+  }
+}

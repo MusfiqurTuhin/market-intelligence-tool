@@ -1,0 +1,46 @@
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data files
+data/raw/*.json
+data/raw/*.csv
+data/raw/html_snapshots/*.html
+data/cleaned/*.json
+data/cleaned/*.csv
+data/processed/*.json
+data/processed/*.csv
+
+# Logs
+logs/*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Database
+*.db
+*.sqlite3
+
+# Streamlit
+.streamlit/secrets.toml

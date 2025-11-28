@@ -1,0 +1,48 @@
+{
+    "scraping_settings": {
+        "browser": {
+            "headless": true,
+            "viewport": {
+                "width": 1920,
+                "height": 1080
+            }
+        },
+        "timeout_seconds": 30,
+        "rate_limit_seconds": 2.5,
+        "max_retries": 3,
+        "retry_backoff_factor": 2
+    },
+    "output_settings": {
+        "raw_data_dir": "data/raw",
+        "cleaned_data_dir": "data/cleaned",
+        "html_snapshot_dir": "data/raw/html_snapshots",
+        "filename_pattern": "{country}_providers_{timestamp}.json",
+        "save_html_snapshots": true
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "logs/scraper.log",
+        "console_output": true
+    },
+    "targets": {
+        "bangladesh": {
+            "base_url": "https://www.example.com/providers/bangladesh",
+            "country_code": "BD",
+            "selectors": {
+                "listing": {
+                    "provider_link": "a.provider-link",
+                    "next_page": "a.next-page"
+                },
+                "detail": {
+                    "name": "h1.company-name",
+                    "tier": ".badge-tier",
+                    "location": ".location-info",
+                    "website": "a.website-link",
+                    "description": ".about-section",
+                    "services": ".services-list li",
+                    "references": ".client-references li"
+                }
+            }
+        }
+    }
+}
