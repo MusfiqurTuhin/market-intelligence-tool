@@ -1,6 +1,6 @@
 """Scrapers package for Odoo partner data collection."""
 
-from .main_scraper_base import BaseScraper
-from .main_scraper_bangladesh import BangladeshScraper
+from .base_scraper import BaseScraper
+from .generic_scraper import GenericScraper
 
-__all__ = ['BaseScraper', 'BangladeshScraper']
+__all__ = ['BaseScraper', 'GenericScraper']

@@ -43,6 +43,25 @@
                     "references": ".client-references li"
                 }
             }
+        },
+        "fiverr": {
+            "base_url": "https://www.fiverr.com/search/gigs?query=odoo&source=main_banner&search_in=everywhere&search-autocomplete-original-term=odoo",
+            "country_code": "XX",
+            "selectors": {
+                "listing": {
+                    "provider_link": "div[data-testid^='gig-card'] a[href^='/']",
+                    "next_page": "li.page-item a[aria-label='Next']"
+                },
+                "detail": {
+                    "name": "h1",
+                    "tier": ".seller-level",
+                    "location": ".seller-location",
+                    "website": "",
+                    "description": ".description-wrapper",
+                    "services": ".gig-metadata li",
+                    "references": ".reviews-wrapper .review-item"
+                }
+            }
         }
     }
 }

@@ -34,6 +34,16 @@ class BaseScraper(ABC):
         self.context = None
         self.page = None
         
+        # Initialize proxy manager
+        try:
+            from scrapers.proxy_manager import ProxyManager
+            self.proxy_manager = ProxyManager()
+        except ImportError:
+            self.logger.warning("ProxyManager not found, running without proxies")
+            self.proxy_manager = None
+            
+        self.use_proxy = True
+        
         # List of modern User-Agents for rotation
         self.user_agents = [
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -68,38 +78,44 @@ class BaseScraper(ABC):
         
         return logging.getLogger(self.__class__.__name__)
     
-    def init_browser(self, proxy: Optional[str] = None) -> None:
+    def init_browser(self, headless: bool = True, use_proxy: bool = True) -> None:
         """Initialize Playwright browser instance."""
         self.logger.info("Initializing browser...")
-        scraping_settings = self.config['scraping_settings']
         
         self.playwright = sync_playwright().start()
         
-        # Access nested config correctly
-        scraping_settings = self.config.get('scraping_settings', {})
-        browser_config = scraping_settings.get('browser', {})
-        
         launch_args = {
-            'headless': browser_config.get('headless', False),
+            'headless': headless,
             'args': ['--disable-blink-features=AutomationControlled']
         }
         
-        if proxy:
-            launch_args['proxy'] = {'server': proxy}
-            self.logger.info(f"Using proxy: {proxy}")
+        proxy_server = None
+        if use_proxy and self.proxy_manager:
+            proxy_server = self.proxy_manager.get_next_proxy()
+            
+        if proxy_server:
+            launch_args['proxy'] = {'server': proxy_server}
+            self.logger.info(f"Using proxy: {proxy_server}")
             
         self.browser = self.playwright.chromium.launch(**launch_args)
         
         # Select random User-Agent
         user_agent = random.choice(self.user_agents)
         self.logger.info(f"Using User-Agent: {user_agent}")
+
+        scraping_settings = self.config.get('scraping_settings', {})
+        browser_config = scraping_settings.get('browser', {})
         
-        self.context = self.browser.new_context(
-            viewport=browser_config.get('viewport', {'width': 1920, 'height': 1080}),
-            user_agent=user_agent
-        )
+        context_args = {
+            'viewport': browser_config.get('viewport', {'width': 1920, 'height': 1080}),
+            'user_agent': user_agent
+        }
         
+        self.context = self.browser.new_context(**context_args)
         self.page = self.context.new_page()
+        
+        # Add stealth scripts
+        self.page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         self.page.set_default_timeout(scraping_settings.get('timeout_seconds', 30) * 1000)
         
         self.logger.info("Browser initialized successfully")
@@ -253,7 +269,7 @@ class BaseScraper(ABC):
         """
         try:
             self.logger.info(f"Starting scraper: {self.__class__.__name__}")
-            self.init_browser()
+            self.init_browser(use_proxy=self.use_proxy)
             
             data = self.scrape()
             

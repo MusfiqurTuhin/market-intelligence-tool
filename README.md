@@ -12,6 +12,7 @@ Systematically identify, score, and target high-potential service providers by c
 - **Data Cleaning**: Automated normalization and deduplication.
 - **Quality Scoring**: Data completeness and validity checks.
 - **Export**: Data export to JSON and CSV formats.
+- **Fiverr Market Analysis**: Dedicated tool for scraping and analyzing Fiverr gigs (see `fiverr_scraper/`).
 
 ## 🏗️ Project Structure
 
