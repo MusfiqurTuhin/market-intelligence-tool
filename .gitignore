@@ -44,3 +44,8 @@ logs/*.log
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Fiverr Scraper Data
+fiverr_scraper/*.json
+fiverr_scraper/*.csv
+fiverr_scraper/*.xlsx
