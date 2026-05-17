@@ -1,51 +1,13 @@
-.env
-venv/
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-*.egg
-*.egg-info/
+*.py[cod]
+*.env
+venv/
+.env
+*.log
 dist/
 build/
+*.egg-info/
 .pytest_cache/
-.coverage
-htmlcov/
-
-# Data files
-data/raw/*.json
-data/raw/*.csv
-data/raw/html_snapshots/*.html
-data/cleaned/*.json
-data/cleaned/*.csv
-data/processed/*.json
-data/processed/*.csv
-
-# Logs
-logs/*.log
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
 .DS_Store
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb
-
-# Database
-*.db
 *.sqlite3
-
-# Streamlit
-.streamlit/secrets.toml
-
-# Fiverr Scraper Data
-fiverr_scraper/*.json
-fiverr_scraper/*.csv
-fiverr_scraper/*.xlsx
